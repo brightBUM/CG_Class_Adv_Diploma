@@ -1,5 +1,5 @@
-#include <GLFW/glfw3.h>
 #include<glad/glad.h>
+#include <GLFW/glfw3.h>
 #include<iostream>
 
 
@@ -20,6 +20,8 @@ int main(void)
         glfwTerminate();
         return -1;
     }
+    /* Make the window's context current */
+    glfwMakeContextCurrent(window);
 
     //glad loader
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -27,9 +29,6 @@ int main(void)
         std::cout << "Failed to initialize GLAD" << std::endl;
         return -1;
     }
-
-    /* Make the window's context current */
-    glfwMakeContextCurrent(window);
 #pragma endregion
 
     std::cout << "starting game loop" << std::endl;
