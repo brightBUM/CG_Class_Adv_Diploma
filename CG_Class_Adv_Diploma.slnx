@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="CG_Class_Adv_Diploma/CG_Class_Adv_Diploma.vcxproj" />
+</Solution>
