@@ -3,5 +3,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="CG_Class_Adv_Diploma/CG_Class_Adv_Diploma.vcxproj" />
+  <Project Path="CG_Class_Adv_Diploma/CG_Class_Adv_Diploma.vcxproj" Id="0ab17c79-ca45-4b99-8196-dfa5438865e2" />
 </Solution>
