@@ -32,7 +32,7 @@ int main(void)
     {
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
-        glClearColor(1.0f, 0.5f, 0.0f, 0.0f);
+        glClearColor(0.529, 0.592, 0.922, 0.0f);
 
         std::cout << "inside the game loop" << std::endl;
 
