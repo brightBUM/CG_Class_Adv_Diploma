@@ -1,7 +1,7 @@
 #include<glad/glad.h>
 #include <GLFW/glfw3.h>
 #include<iostream>
-
+#include<string>
 
 int main(void)
 {
@@ -14,7 +14,7 @@ int main(void)
         return -1;
 
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(800, 600, "CG_class", NULL, NULL);
+    window = glfwCreateWindow(1920, 1080, "CG_class", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
@@ -22,6 +22,7 @@ int main(void)
     }
     /* Make the window's context current */
     glfwMakeContextCurrent(window);
+    glfwSwapInterval(0);
 
     //glad loader
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -34,16 +35,44 @@ int main(void)
     std::cout << "starting game loop" << std::endl;
 
 #pragma region RenderLoop
+    int frameCounter = 0;
+    double currentTime = 0.0f;
+    double prevTime = 0.0f;
+    float timer = 0.0f;
+    int Fps = 0;
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
-        glClearColor(0.529, 0.592, 0.922, 0.0f);
+        glClearColor(0.282, 0.22, 0.369, 0.0f);
 
-        std::cout << "inside the game loop" << std::endl;
+        //drawing code
+       
+        glPointSize(10.0f);
 
+        
 
+        glLineWidth(3.0f);
+        glColor3f(1.0f, 0.5f, 0.0f); // 0 to 1
+        
+
+        glColor3f(1.0f, 1.0f, 1.0f); // 0 to 1
+        glBegin(GL_TRIANGLE_FAN);
+
+        glVertex3f(0.0f, 0.0f, 0.0f); //-1 to 1
+        glVertex3f(0.5f, 0.0f, 0.0f);
+        glVertex3f(0.5f, 0.5f, 0.0f);
+
+        glColor3f(1.0f, 0.5f, 0.0f); // 0 to 1
+
+        glVertex3f(0.0f, 0.75f, 0.0f);
+
+        glColor3f(0, 1, 0.2); // 0 to 1
+        glVertex3f(0.5f, 0.75f, 0.0f);
+        glVertex3f(-0.5f, -0.5f, 0.0f);
+
+        glEnd();
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
