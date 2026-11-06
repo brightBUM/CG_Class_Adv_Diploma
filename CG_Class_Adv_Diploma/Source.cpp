@@ -14,7 +14,7 @@ int main(void)
         return -1;
 
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(1920, 1080, "CG_class", NULL, NULL);
+    window = glfwCreateWindow(800, 600, "CG_class", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
@@ -32,7 +32,7 @@ int main(void)
     }
 #pragma endregion
 
-    std::cout << "starting game loop" << std::endl;
+    std::cout << "starting game loop project 1" << std::endl;
 
 #pragma region RenderLoop
     int frameCounter = 0;
@@ -51,14 +51,33 @@ int main(void)
        
         glPointSize(10.0f);
 
-        
+        //glLineWidth(3.0f);
+        //glColor3f(1.0f, 0.5f, 0.0f); // 0 to 1
+        //
 
-        glLineWidth(3.0f);
-        glColor3f(1.0f, 0.5f, 0.0f); // 0 to 1
-        
+        //glColor3f(1.0f, 1.0f, 1.0f); // 0 to 1
+        //glBegin(GL_TRIANGLE_FAN);
+
+        //glVertex3f(0.0f, 0.0f, 0.0f); //-1 to 1
+        //glVertex3f(0.5f, 0.0f, 0.0f);
+        //glVertex3f(0.5f, 0.5f, 0.0f);
+
+        //glColor3f(1.0f, 0.5f, 0.0f); // 0 to 1
+
+        //glVertex3f(0.0f, 0.75f, 0.0f);
+
+        //glColor3f(0, 1, 0.2); // 0 to 1
+        //glVertex3f(-0.5f, 0.5f, 0.0f);
+        //glVertex3f(-0.5f, -0.5f, 0.0f);
+
+        //glEnd();
+
+
 
         glColor3f(1.0f, 1.0f, 1.0f); // 0 to 1
-        glBegin(GL_TRIANGLE_FAN);
+        glLineWidth(6.0f);
+        glBegin(GL_LINE_STRIP);
+
 
         glVertex3f(0.0f, 0.0f, 0.0f); //-1 to 1
         glVertex3f(0.5f, 0.0f, 0.0f);
@@ -69,7 +88,7 @@ int main(void)
         glVertex3f(0.0f, 0.75f, 0.0f);
 
         glColor3f(0, 1, 0.2); // 0 to 1
-        glVertex3f(0.5f, 0.75f, 0.0f);
+        glVertex3f(-0.5f, 0.5f, 0.0f);
         glVertex3f(-0.5f, -0.5f, 0.0f);
 
         glEnd();
