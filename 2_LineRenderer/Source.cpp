@@ -3,23 +3,26 @@
 #include<iostream>
 #include<string>
 #include<vector>
+#include<glm/glm.hpp>
 using namespace std;
-
+using namespace glm;
 //global variables
 const int WIDTH = 800;
 const int HEIGHT = 600;
 float worldX;
 float worldY;
+
+glm::vec3 pointA(0.5f, 0.5f, 0.5f);
+
 vector<int> a;
-vector<float> points;
+vector<vec3> points;
 
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 {
-    if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
+    if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_RELEASE)
     {
         //cout << "right mouse pressed" << endl;
-        points.push_back(worldX); //x 
-        points.push_back(worldY); //y
+        points.push_back(glm::vec3(worldX,worldY,0.0f)); //x 
     }
 }
 static void cursor_position_callback(GLFWwindow* window, double xpos, double ypos)
@@ -67,20 +70,12 @@ int main(void)
 #pragma region RenderLoop
     
     //1
-    points.push_back(0.0f); //x 
-    points.push_back(0.0f); //y
+    points.push_back(vec3(0.0f,0.0f,0.0f)); //x 
+    points.push_back(vec3(0.5f,0.0f,0.0f)); //x 
+    points.push_back(vec3(0.5f,0.5f,0.0f)); //x 
+    points.push_back(vec3(0.0f,0.5f,0.0f)); //x 
 
-    //2
-    points.push_back(0.5f); //x 
-    points.push_back(0.0f); //y
-
-    //3
-    points.push_back(0.5f); //x 
-    points.push_back(0.5f); //y
-
-    //4
-    points.push_back(0.0f); //x 
-    points.push_back(0.5f); //y
+    
 
     for (int i = 0;i < a.size();i++)
     {
@@ -92,11 +87,11 @@ int main(void)
     while (!glfwWindowShouldClose(window))
     {
         /* Render here */
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT);   
         glClearColor(0.282, 0.22, 0.369, 0.0f);
 
         //drawing code
-
+          
         glPointSize(10.0f);
 
         glLineWidth(3.0f);
@@ -104,9 +99,9 @@ int main(void)
 
         glBegin(GL_LINE_STRIP);
 
-        for (int i = 0;i < points.size();i += 2)
+        for (int i = 0;i < points.size();i ++)
         {
-            glVertex3f(points[i], points[i+1], 0.0f);
+            glVertex3f(points[i].x, points[i].y, 0.0f);
 
         }
 
@@ -116,9 +111,9 @@ int main(void)
 
         glBegin(GL_POINTS);
 
-        for (int i = 0;i < points.size();i += 2)
+        for (int i = 0;i < points.size();i++)
         {
-            glVertex3f(points[i], points[i + 1], 0.0f);
+            glVertex3f(points[i].x, points[i].y, 0.0f);
 
         }
 
