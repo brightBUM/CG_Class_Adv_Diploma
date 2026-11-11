@@ -11,7 +11,7 @@ const int WIDTH = 800;
 const int HEIGHT = 600;
 float worldX;
 float worldY;
-
+int selectedIndex = -1; // not a valid index 
 glm::vec3 pointA(0.5f, 0.5f, 0.5f);
 
 vector<int> a;
@@ -19,10 +19,16 @@ vector<vec3> points;
 
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 {
-    if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_RELEASE)
+    if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
     {
         //cout << "right mouse pressed" << endl;
         points.push_back(glm::vec3(worldX,worldY,0.0f)); //x 
+    }
+    //left click - drag & drop
+    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE)
+    {
+        //cout << "left mouse pressed"<<endl;
+        selectedIndex = -1;
     }
 }
 static void cursor_position_callback(GLFWwindow* window, double xpos, double ypos)
@@ -89,6 +95,31 @@ int main(void)
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);   
         glClearColor(0.282, 0.22, 0.369, 0.0f);
+
+        //input
+        if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT==GLFW_PRESS))
+        {
+            auto mousePos = glm::vec3(worldX, worldY, 0.0f);
+
+            if (selectedIndex == -1)
+            {
+                for (int i = 0;i < points.size();i++)
+                {
+                    auto distance = glm::distance(mousePos, points[i]);
+                    float radius = 0.1f;
+                    if (distance < radius)
+                    {
+                        //mouse inside point's circle - implement drag
+                        selectedIndex = i;
+                    }
+                }
+            }
+            else
+            {
+                points[selectedIndex] = mousePos;
+            }
+            
+        }
 
         //drawing code
           
