@@ -4,5 +4,6 @@
     <Platform Name="x86" />
   </Configurations>
   <Project Path="2_LineRenderer/2_LineRenderer.vcxproj" Id="8448be45-c5cb-450c-9912-79463349b08d" />
+  <Project Path="3_Quads/3_Quads.vcxproj" Id="78dffd64-8f22-4096-9fa2-cbb2aefc0139" />
   <Project Path="CG_Class_Adv_Diploma/CG_Class_Adv_Diploma.vcxproj" Id="0ab17c79-ca45-4b99-8196-dfa5438865e2" />
 </Solution>
