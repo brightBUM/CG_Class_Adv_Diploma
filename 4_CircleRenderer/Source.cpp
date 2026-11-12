@@ -9,7 +9,8 @@ using namespace glm;
 //global variables
 const int WIDTH = 800;
 const int HEIGHT = 800;
-
+const float Rad2Deg = 57.2958f;
+const float Deg2Rad = 0.0174533;
 float worldX;
 float worldY;
 int selectedIndex = -1; // not a valid index 
@@ -80,7 +81,9 @@ int main(void)
     std::cout << "starting game loop project 4" << std::endl;
     glPolygonMode(GL_FRONT, GL_LINE);
 #pragma region RenderLoop
-
+    float radius = 0.5f;
+    float angleInDegrees = 0.0f;
+    float angleInRadians = 0.0f;
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
@@ -94,33 +97,39 @@ int main(void)
         glPointSize(10.0f);
 
         glLineWidth(3.0f);
-        glColor3f(1.0f, 1.0f, 1.0f); // 0 to 1
 
-        glBegin(GL_POINTS);
-        DefineVertex(glm::vec3(0.0f, 0.0f, 0.0f));
-
-        DefineVertex(glm::vec3(0.5f, 0.0f, 0.0f));
-        DefineVertex(glm::vec3(0.5f, 0.5f, 0.0f));
-
-        DefineVertex(glm::vec3(0.0f, 0.5f, 0.0f));
-        DefineVertex(glm::vec3(-0.75f, 0.0f, 0.0f));
-        glEnd();
+        
         
         glColor3f(1.0f, 0.5f, 0.0f); // 0 to 1
 
         glBegin(GL_TRIANGLE_FAN);
         DefineVertex(glm::vec3(0.0f, 0.0f, 0.0f));
 
-        DefineVertex(glm::vec3(0.5f, 0.0f, 0.0f));
-        DefineVertex(glm::vec3(0.5f, 0.5f, 0.0f));
-        
-        DefineVertex(glm::vec3(0.0f, 0.5f, 0.0f));        
-        DefineVertex(glm::vec3(-0.75f, 0.0f, 0.0f));
+        for (float i = 0;i <= 360;i += 360 / 15)
+        {
+            angleInRadians = i  * Deg2Rad;
+            DefineVertex(glm::vec3(radius * cos(angleInRadians),
+                                   radius * sin(angleInRadians), 0.0f));
 
+        }
 
         glEnd();
 
 
+        glColor3f(1.0f, 1.0f, 1.0f); // 0 to 1
+
+        glBegin(GL_POINTS);
+        DefineVertex(glm::vec3(0.0f, 0.0f, 0.0f));
+
+        for (float i = 0;i <= 360;i += 360 / 15)
+        {
+            angleInRadians = i * Deg2Rad;
+            DefineVertex(glm::vec3(radius * cos(angleInRadians),
+                radius * sin(angleInRadians), 0.0f));
+
+        }
+
+        glEnd();
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
