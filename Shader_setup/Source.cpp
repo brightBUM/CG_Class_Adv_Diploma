@@ -4,6 +4,7 @@
 #include<string>
 #include<vector>
 #include<glm/glm.hpp>
+#include"Shader.h"
 using namespace std;
 using namespace glm;
 
@@ -66,12 +67,17 @@ int main(void)
     }
 #pragma endregion
 
+#pragma region Vertex Data
+
     float vertices[] = {
     -0.5f, -0.5f, 0.0f,//1
      0.5f, -0.5f, 0.0f,//2
      0.0f,  0.5f, 0.0f //3
     };
 
+#pragma endregion
+
+#pragma region Buffers_Attributes
     //VBO - vertex buffer object
     //VAO - vertex attribute object
     unsigned int VBO,VAO;
@@ -83,10 +89,12 @@ int main(void)
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
+    //attributes
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
+#pragma endregion
 
-
+    //Shader defaultShader()
    
 #pragma region RenderLoop
 
