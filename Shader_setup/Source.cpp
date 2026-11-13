@@ -34,7 +34,7 @@ static void cursor_position_callback(GLFWwindow* window, double xpos, double ypo
 #pragma endregion
 
 
-int main(void)
+int main(void)  
 {
 
 #pragma region WindowCreation
@@ -65,6 +65,28 @@ int main(void)
         return -1;
     }
 #pragma endregion
+
+    float vertices[] = {
+    -0.5f, -0.5f, 0.0f,//1
+     0.5f, -0.5f, 0.0f,//2
+     0.0f,  0.5f, 0.0f //3
+    };
+
+    //VBO - vertex buffer object
+    //VAO - vertex attribute object
+    unsigned int VBO,VAO;
+    glGenBuffers(1, &VBO);
+
+    glGenVertexArrays(1, &VAO);
+    glBindVertexArray(VAO);
+    //binding = selecting
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+
+
    
 #pragma region RenderLoop
 
