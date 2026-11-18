@@ -93,8 +93,10 @@ int main(void)
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 #pragma endregion
+      
+    Shader defaultShader("Resources/Shaders/default.vert",
+                         "Resources/Shaders/default.frag");
 
-    //Shader defaultShader()
    
 #pragma region RenderLoop
 
@@ -108,6 +110,8 @@ int main(void)
         glClear(GL_COLOR_BUFFER_BIT);
         glClearColor(0.282, 0.22, 0.369, 0.0f);
 
+        defaultShader.use();
+        glDrawArrays(GL_TRIANGLES, 0, 3);
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
