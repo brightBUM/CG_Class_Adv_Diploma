@@ -8,5 +8,5 @@ in vec3 Color;
 
 void main()
 {
-    FragColor = vec4(Color, 1.0f);
+    FragColor = vec4(objectColor, 1.0f);
 } 

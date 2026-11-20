@@ -71,14 +71,16 @@ int main(void)
 #pragma region Vertex Data
 
     float vertices[] = {
-      //pos             //col
-     -0.5f, -0.5f, 0.0f, 1.0f,0.0f,0.0f,//0
-      0.5f, -0.5f, 0.0f, 0.0f,1.0f,0.0f,//1
-     -0.5f,  0.5f, 0.0f, 0.0f,0.0f,1.0f,//2 
-
-      0.5f, -0.5f, 0.0f, 0.0f,1.0f,0.0f,//1
-     -0.5f,  0.5f, 0.0f, 0.0f,0.0f,1.0f,//2
-      0.5f,  0.5f, 0.0f, 1.0f,1.0f,1.0f//3
+     0.5f,  0.5f, 0.0f,  // top right
+     0.5f, -0.5f, 0.0f,  // bottom right
+    -0.5f, -0.5f, 0.0f,  // bottom left
+    -0.5f,  0.5f, 0.0f,   // top left 
+     0.0f,  0.75f,0.0f   //TOP MOST
+    };
+    unsigned int indices[] = {  // note that we start from 0!
+        0, 1, 3,   // first triangle
+        1, 2, 3,    // second triangle
+        0,3,4 //3RD TRIANGLE
     };
 
 #pragma endregion
@@ -86,8 +88,10 @@ int main(void)
 #pragma region Buffers_Attributes
     //VBO - vertex buffer object
     //VAO - vertex attribute object
-    unsigned int VBO, VAO;
+    //EBO - element buffer object
+    unsigned int VBO, VAO,EBO;
     glGenBuffers(1, &VBO);
+    glGenBuffers(1, &EBO);
 
     glGenVertexArrays(1, &VAO);
     glBindVertexArray(VAO);
@@ -95,17 +99,19 @@ int main(void)
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
     //attributes
     // 1st param - layout location
     // 2nd param - size of component
     // 5th param - total size of vertex
     // 6th param - offset within the vertex
     //pos attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
     //col attribute
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3*sizeof(float)));
-    glEnableVertexAttribArray(1);
+    /*glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3*sizeof(float)));
+    glEnableVertexAttribArray(1);*/
 #pragma endregion
 
     Shader defaultShader("Resources/Shaders/default.vert",
@@ -129,12 +135,11 @@ int main(void)
         defaultShader.use();
         defaultShader.SetVec3("objectColor", glm::vec3(1.0f, 1.0f, 0.0f));
         glDrawArrays(GL_TRIANGLES, 0, 3); // first & //count;
-        defaultShader.SetVec3("objectColor", glm::vec3(1.0f, 0.5f, 0.0f));
-        glDrawArrays(GL_TRIANGLES, 3, 3); // first & //count;
+        glDrawElements(GL_TRIANGLES, 9, GL_UNSIGNED_INT, 0);
 
-        glPointSize(5.0f);
+        glPointSize(10.0f);
         defaultShader.SetVec3("objectColor", glm::vec3(1.0f, 1.0f, 1.0f));
-        glDrawArrays(GL_POINTS, 0, 6);
+        glDrawArrays(GL_POINTS, 0, 5);
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
