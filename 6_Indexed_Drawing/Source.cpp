@@ -75,12 +75,12 @@ int main(void)
      0.5f, -0.5f, 0.0f,  // bottom right
     -0.5f, -0.5f, 0.0f,  // bottom left
     -0.5f,  0.5f, 0.0f,   // top left 
-     0.0f,  0.75f,0.0f   //TOP MOST
+     0.0f,  0.8f, 0.0f,
     };
     unsigned int indices[] = {  // note that we start from 0!
         0, 1, 3,   // first triangle
         1, 2, 3,    // second triangle
-        0,3,4 //3RD TRIANGLE
+        0 ,3, 4     //3rd triangle
     };
 
 #pragma endregion
@@ -89,7 +89,7 @@ int main(void)
     //VBO - vertex buffer object
     //VAO - vertex attribute object
     //EBO - element buffer object
-    unsigned int VBO, VAO,EBO;
+    unsigned int VBO, VAO, EBO;
     glGenBuffers(1, &VBO);
     glGenBuffers(1, &EBO);
 
@@ -115,7 +115,7 @@ int main(void)
 #pragma endregion
 
     Shader defaultShader("Resources/Shaders/default.vert",
-                         "Resources/Shaders/default.frag");
+        "Resources/Shaders/default.frag");
 
 #pragma region RenderLoop
 
@@ -133,11 +133,13 @@ int main(void)
         //std::cout << glfwGetTime() << std::endl;
 
         defaultShader.use();
-        defaultShader.SetVec3("objectColor", glm::vec3(1.0f, 1.0f, 0.0f));
-        glDrawArrays(GL_TRIANGLES, 0, 3); // first & //count;
-        glDrawElements(GL_TRIANGLES, 9, GL_UNSIGNED_INT, 0);
 
-        glPointSize(10.0f);
+        defaultShader.SetVec3("objectColor", glm::vec3(1.0f, 1.0f, 0.0f));
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        defaultShader.SetVec3("objectColor", glm::vec3(1.0f, 0.0f, 0.0f));
+        glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, (void*)(6 * sizeof(float)));
+
+        glPointSize(5.0f);
         defaultShader.SetVec3("objectColor", glm::vec3(1.0f, 1.0f, 1.0f));
         glDrawArrays(GL_POINTS, 0, 5);
 
